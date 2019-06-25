@@ -2,7 +2,7 @@ build:
 	go build -o bin/robin main.go
 
 run:
-	go run main.go
+	go run *.go
 
 compile:
 	GOOS=linux GOARCH=386 go build -o bin/robin-linux-x86 main.go

@@ -6,61 +6,32 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"sync"
+	"net/url"
 ) 
 
 const timeout = 100 * time.Millisecond
 
-type Robin struct {
-	current int
-	mu *sync.Mutex
-	handlers []http.Handler
-}
-
-func (r *Robin) ServeHTTP(w http.ResponseWriter, req *http.Request) {
-	r.mu.Lock()
-
-	defer r.mu.Unlock()
-
-	r.handlers[r.current].ServeHTTP(w, req)
-
-	r.current = (r.current + 1) % len(r.handlers)
-}
-
-func (r *Robin) AddHandler(handler http.Handler) {
-	r.mu.Lock()
-
-	defer r.mu.Unlock()
-
-	r.handlers = append(r.handlers, handler)
-}
-
-func NewRobin(handlers ...http.Handler) *Robin {
-	return &Robin{
-		current: 0,
-		mu: &sync.Mutex{},
-		handlers: handlers,
-	}
-}
-
-func NewHandler(msg string) http.Handler {
-	mux := http.NewServeMux()
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello, from %s", msg)
-	})
-	return mux
-}
-
 func main() {
-	server_us := NewHandler("127.0.0.2")
-	server_eu := NewHandler("127.0.0.3")
-	server_eu_gb := NewHandler("127.0.0.4")
+	server_nl := &Server {
+		id: Rand(8),
+		url: &url.URL{Host: "127.0.0.1"},
+		weight: 20,
+	}
 
-	handler := NewRobin(server_us, server_eu, server_eu_gb)
+	server_us := &Server {
+		id: Rand(8),
+		url: &url.URL{Host: "127.0.0.1"},
+		weight: 40,
+	}
+
+	server_nl_handler := NewHandler(server_nl)
+	server_us_handler := NewHandler(server_us)
+
+	handler := NewRobin(server_us_handler, server_nl_handler)
 
 	server := &http.Server {
 		Handler: handler,
-		Addr: "127.0.0.1:9090",
+		Addr: ":9090",
 	}
 
 	go func() {
@@ -70,14 +41,21 @@ func main() {
 	}()
 	fmt.Println("Starting web server...")
 
-	req, err := http.NewRequest("GET", "http://127.0.0.1:9090/", nil)
+	req, err := http.NewRequest("GET", "http://localhost:9090/", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	req.Close = true
 
-	requests := 5
+	var num int
+	fmt.Print("How many requests? ")
+	_, err = fmt.Scanf("%d", &num)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	requests := num
 
 	fmt.Printf("Requests: [%d]\n", requests)
 
