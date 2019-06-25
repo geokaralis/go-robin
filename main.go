@@ -12,6 +12,8 @@ import (
 const timeout = 100 * time.Millisecond
 
 func main() {
+	WatchProcess()
+	
 	server_nl := &Server {
 		id: Rand(8),
 		url: &url.URL{Host: "127.0.0.1"},
