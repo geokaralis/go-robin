@@ -13,6 +13,14 @@ const timeout = 100 * time.Millisecond
 
 func main() {
 	WatchProcess()
+
+	connection := &Connection {
+		id: Rand(8),
+		Type: "TCP",
+		status: 1,
+	}
+
+	connection.Check()
 	
 	server_nl := &Server {
 		id: Rand(8),

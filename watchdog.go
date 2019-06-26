@@ -6,6 +6,15 @@ import (
 	"syscall"
 )
 
+type State int
+
+const (
+	Running State = iota
+	Killed
+	Unavailable
+	Null
+)
+
 func WatchProcess() {
 	fmt.Printf("pid: %d\n", os.Getpid())
 
@@ -18,5 +27,13 @@ func WatchProcess() {
 	} else {
 		sig := process.Signal(syscall.Signal(0))
 		fmt.Printf("process.Signal on pid %d returned: %v\n", pid, sig)
+	}
+}
+
+func Sig(signal int) {
+	state := Null
+	switch state {
+	case Running:
+		fmt.Printf("Process is running\n")
 	}
 }
