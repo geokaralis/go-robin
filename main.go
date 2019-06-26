@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"os"
 
 	"go-robin/health"
 ) 
@@ -14,6 +15,18 @@ import (
 const timeout = 100 * time.Millisecond
 
 func main() {
+
+	session := &Session {
+		id: Rand(6),
+		status: 1,
+		pid: os.Getpid(),
+		name: "Robin",
+		desc: "Decentralized load balancer in Go.",
+	}
+
+	fmt.Printf("Process: %d, Name: %s, Description: %s\n", session.pid, session.name, session.desc)
+
+	session.Watch()
 
 	WatchProcess()
 
