@@ -7,12 +7,22 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+
+	"go-robin/health"
 ) 
 
 const timeout = 100 * time.Millisecond
 
 func main() {
 	WatchProcess()
+
+	health_server := &health.Health {
+		Instance: Rand(4),
+		Endpoint: "/health",
+		Port: ":3001",
+	}
+
+	health_server.ServeHealth()
 
 	connection := &Connection {
 		id: Rand(8),
