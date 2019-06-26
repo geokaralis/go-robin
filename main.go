@@ -14,6 +14,7 @@ import (
 const timeout = 100 * time.Millisecond
 
 func main() {
+
 	WatchProcess()
 
 	health_server := &health.Health {
@@ -85,6 +86,10 @@ func main() {
 	}
 
 	fmt.Println("Completed all requests")
+
+	// for {
+
+	// }
 }
 
 func Lookup(req *http.Request) {
