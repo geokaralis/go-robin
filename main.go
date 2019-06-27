@@ -10,11 +10,29 @@ import (
 	"os"
 
 	"go-robin/health"
+	"go-robin/queue"
 ) 
 
 const timeout = 100 * time.Millisecond
 
 func main() {
+
+	messageQueue := queue.Queue{}
+	messageQueue.NewQueue()
+
+	messageQueue.Enqueue("Hello")
+	messageQueue.Enqueue("World")
+	messageQueue.Enqueue("!")
+
+	fmt.Printf("Queue size: %d\n", messageQueue.Size())
+
+	fmt.Printf("Queue's first item: %v\n", *messageQueue.Front())
+
+	for i := 0; i < messageQueue.Size(); i++ {
+		fmt.Printf("%v ", messageQueue.Items[i])
+	}
+	fmt.Println()
+	fmt.Println()
 
 	session := &Session {
 		id: Rand(6),
