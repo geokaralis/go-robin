@@ -11,11 +11,52 @@ import (
 
 	"go-robin/health"
 	"go-robin/queue"
+	"go-robin/heal"
 ) 
 
 const timeout = 100 * time.Millisecond
 
 func main() {
+	fmt.Println("Press 1 to run")
+	fmt.Println("Press 2 to exit")
+	setup()
+	for {
+			sample()
+	}
+}
+
+func sample() {
+	var input string
+	fmt.Printf("Input (req, exit): ")
+	n, err := fmt.Scanln(&input)
+	if n < 1 || err != nil {
+			 fmt.Println("invalid input")
+			 return
+	}
+	switch input {
+	case "req":
+			request()
+	case "exit":
+			os.Exit(2)
+	default:
+			fmt.Println("def")
+	}
+}
+
+func setup() {
+
+	healService := &heal.Service {
+		Id: Rand(4),
+		Url: &url.URL{Host: "127.0.0.1"},
+		Endpoint: "/heal",
+		State: 1,
+		Port: ":1251",
+	}
+
+	healService.Start()
+
+	heal.StartHealingProcess()
+
 
 	messageQueue := queue.Queue{}
 	messageQueue.NewQueue()
@@ -93,6 +134,9 @@ func main() {
 	}()
 	fmt.Println("Starting web server...")
 
+}
+
+func request() {
 	req, err := http.NewRequest("GET", "http://localhost:9090/", nil)
 	if err != nil {
 		log.Fatal(err)
@@ -118,9 +162,6 @@ func main() {
 
 	fmt.Println("Completed all requests")
 
-	// for {
-
-	// }
 }
 
 func Lookup(req *http.Request) {
