@@ -16,4 +16,4 @@ To build Robin run
 ```
 make install
 ```
-from the project directory. That creates an executable at the bin directory, of your go path, named `robin_core`.
+from the project directory. That creates an executable at the bin directory, of your go path, named robin_core.
