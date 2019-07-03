@@ -1,4 +1,4 @@
-package main
+package crypto
 
 import (
 	"crypto/rand"
@@ -6,7 +6,7 @@ import (
 	"math"
 )
 
-func Rand(l int) string {
+func RandomId(l int) string {
 	buff := make([]byte, int(math.Round(float64(l)/float64(1.33333333333))))
 	rand.Read(buff)
 	str := base64.RawURLEncoding.EncodeToString(buff)

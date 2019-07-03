@@ -21,7 +21,7 @@ func main() {
 	fmt.Println("Press 2 to exit")
 	setup()
 	for {
-			sample()
+		sample()
 	}
 }
 
