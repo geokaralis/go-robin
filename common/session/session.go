@@ -3,13 +3,8 @@ package session
 import (
 	"fmt"
 	"os"
-
 	"github.com/geokaralis/go-robin/crypto"
 )
-
-func Test() {
-	fmt.Println("Dddd")
-}
 
 type Session struct {
 	id string
@@ -21,7 +16,7 @@ type Session struct {
 
 func NewSession() *Session {
 	return &Session {
-		id: crypto.Id(8),
+		id: crypto.Id(12),
 		status: 1,
 		pid: os.Getpid(),
 		name: "Robin",
@@ -29,13 +24,24 @@ func NewSession() *Session {
 	}
 }
 
+func (s *Session) Getid() string {
+	return s.id
+}
+
+func (s *Session) Getpid() int {
+	return s.pid
+}
+
+func (s *Session) Getname() string {
+	return s.name
+}
+
+func (s *Session) Getdesc() string {
+	return s.desc
+}
+
 func (s *Session) Start() {
-	fmt.Printf("            __   _    \n")
-	fmt.Printf("  _______  / /  (_)__ \n")
-	fmt.Printf(" / __/ _ \\/ _ \\/ / _ \\ \n")
-	fmt.Printf("/_/  \\___/_.__/_/_//_/ \n")
-	fmt.Printf("%s, %s\n\n", s.name, s.desc)
-	fmt.Printf("Starting session, id: %s, pid: %d\n", s.id, s.pid)
+	
 }
 
 func (s *Session) Watch() {

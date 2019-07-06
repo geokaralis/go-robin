@@ -13,3 +13,4 @@ all: build
 
 install: build
 	go install github.com/geokaralis/go-robin/binaries/robin_core
+	go install github.com/geokaralis/go-robin/binaries/robin_watchdog

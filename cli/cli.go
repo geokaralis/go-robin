@@ -3,15 +3,19 @@ package cli
 import (
 	"fmt"
 	"os"
+	"github.com/geokaralis/go-robin/common/session"
 )
 
 type Cli struct {
-
+	Input bool
 }
 
-func (c *Cli) Init()  {
+func (c *Cli) Init(s *session.Session)  {
+	branding(s)
 	for {
-		input()
+		if c.Input {
+			input()
+		}
 	}
 }
 
@@ -31,4 +35,14 @@ func input() {
 	default:
 			fmt.Println("def")
 	}
+}
+
+func branding(s *session.Session) {
+	fmt.Printf("(c) 2019 George Karalis and Robin's respected authors. Robin is a work in progress.\n")
+	fmt.Printf("            __   _    \n")
+	fmt.Printf("  _______  / /  (_)__ \n")
+	fmt.Printf(" / __/ _ \\/ _ \\/ / _ \\ \n")
+	fmt.Printf("/_/  \\___/_.__/_/_//_/ \n")
+	fmt.Printf("%s, %s\n", s.Getname(), s.Getdesc())
+	fmt.Printf("Starting session, id: %s, pid: %d\n", s.Getid(), s.Getpid())
 }
