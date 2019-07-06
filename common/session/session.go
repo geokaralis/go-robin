@@ -1,11 +1,10 @@
-package core
+package session
 
 import (
 	"fmt"
-	"crypto/rand"
-	"encoding/base64"
-	"math"
 	"os"
+
+	"github.com/geokaralis/go-robin/crypto"
 )
 
 func Test() {
@@ -20,16 +19,9 @@ type Session struct {
 	desc string
 }
 
-func RandomId(l int) string {
-	buff := make([]byte, int(math.Round(float64(l)/float64(1.33333333333))))
-	rand.Read(buff)
-	str := base64.RawURLEncoding.EncodeToString(buff)
-	return str[:l] // strip the one extra byte we get from half the results.
-}
-
 func NewSession() *Session {
 	return &Session {
-		id: RandomId(8),
+		id: crypto.Id(8),
 		status: 1,
 		pid: os.Getpid(),
 		name: "Robin",
@@ -38,6 +30,11 @@ func NewSession() *Session {
 }
 
 func (s *Session) Start() {
+	fmt.Printf("            __   _    \n")
+	fmt.Printf("  _______  / /  (_)__ \n")
+	fmt.Printf(" / __/ _ \\/ _ \\/ / _ \\ \n")
+	fmt.Printf("/_/  \\___/_.__/_/_//_/ \n")
+	fmt.Printf("%s, %s\n\n", s.name, s.desc)
 	fmt.Printf("Starting session, id: %s, pid: %d\n", s.id, s.pid)
 }
 

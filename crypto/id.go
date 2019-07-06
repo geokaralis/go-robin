@@ -5,8 +5,8 @@ import (
 	"encoding/base64"
 	"math"
 )
-
-func RandomId(l int) string {
+// Generates a random base 64 cryptographic id 
+func Id(l int) string {
 	buff := make([]byte, int(math.Round(float64(l)/float64(1.33333333333))))
 	rand.Read(buff)
 	str := base64.RawURLEncoding.EncodeToString(buff)
