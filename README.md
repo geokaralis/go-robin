@@ -6,7 +6,7 @@
 Decentralized, load balancer in go, utilising a weighted and dynamic Round-Robin algorithm. Robin lives inside a microservice environment as a separate process, balancing outgoing requests to other services. That helps eliminate a single point of failure and achieve resiliency within a crowded system. Robin also follows a self-healing approach creating multiple processes when needed and communicating with other service's load balancers. If Robin fails, other services take over to achieve load balancing, while Robin self-heals, succeeding in decentralization. Robin must have a minimal footprint doing load balancing and load balancing only, in order to keep the service as minimal and as small as possible. It's name is a reference to Robin Hood, stealing from the rich and giving to the poor, kind like it's main purpose as a load balancer.
 
 <p align="center">
-  <img src="/docs/usage_diagram.svg" alt="Robin diagram"/>
+  <img src="/docs/usage_diagram.png" alt="Robin diagram"/>
 </p>
 
 ## Go
