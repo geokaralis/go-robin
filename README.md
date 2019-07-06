@@ -16,8 +16,8 @@ Robin is written in Go, because of it's performance and usage in many distribute
 Upon deploying Robin creates instances of itself in the cloud, inside the various services it communicates to, as a separate process. It establishes a connection with those instances sending a very small payload, to inform those self-instances that it's still alive, at a variable amount of time. When Robin goes down, another service's Robin instance takes control, providing load balancing, as the robin-daemon tries to bring Robin back to life. Thus, Robin running at the os level provides resiliency to the system.
 
 ### Building
-To build Robin run
+To build Robin, from the project directory, simply run:
 ```
 make install
 ```
-from the project directory. That creates an executable at the bin directory, of your go path, named robin_core.
+Then find and run the compiled binaries at the bin directory of your Go path.
